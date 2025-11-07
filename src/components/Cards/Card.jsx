@@ -18,6 +18,7 @@ const Card = ({ className, isSelected, isLoading, children, ...rest }) => {
           <Loader />
         </div>
       )}
+      <div className="absolute right-5"></div>
 
       {children}
     </div>
