@@ -6,7 +6,7 @@ const Movies = ({
   movies,
   handleMovieCardClick,
   selectedMovieId,
-  isLoading,
+  loadingMovieId,
 }) => {
   return (
     <section className={cn(className)}>
@@ -20,7 +20,7 @@ const Movies = ({
             movie={movie}
             onClick={() => handleMovieCardClick(movie)}
             isSelected={selectedMovieId === movie.episodeId}
-            isLoading={isLoading}
+            isLoading={loadingMovieId === movie.episodeId}
           />
         ))
       )}

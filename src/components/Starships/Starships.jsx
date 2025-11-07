@@ -6,7 +6,7 @@ const Starships = ({
   starships,
   handleStarshipCardClick,
   selectedStarshipId,
-  isLoading,
+  loadingStarshipId,
 }) => {
   return (
     <section className={cn(className)}>
@@ -18,7 +18,7 @@ const Starships = ({
           onClick={() => handleStarshipCardClick(starship)}
           // There is no id in starship model so decided to use the name instead
           isSelected={selectedStarshipId === starship.name}
-          isLoading={isLoading}
+          isLoading={loadingStarshipId === starship.name}
         />
       ))}
     </section>

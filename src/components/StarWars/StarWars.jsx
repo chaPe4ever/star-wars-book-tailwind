@@ -11,12 +11,12 @@ const StarWars = () => {
   // Movies State
   const [movies, setMovies] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
-  const [isMovieCardLoading, setIsMovieCardLoading] = useState(false);
+  const [loadingMovieId, setLoadingMovieId] = useState(null);
 
   // Starships State
   const [starships, setStarships] = useState([]);
   const [selectedStarshipId, setSelectedStarshipId] = useState(null);
-  const [isStarshipLoading, setIsStarshipLoading] = useState(false);
+  const [loadingStarshipId, setLoadingStarshipId] = useState(null);
 
   // Pilots State
   const [pilots, setPilots] = useState([]);
@@ -41,25 +41,29 @@ const StarWars = () => {
     setSelectedStarshipId(null);
     setPilots([]);
 
-    setIsMovieCardLoading(true);
+    if (movie) {
+      setLoadingMovieId(movie.episodeId);
 
-    Promise.all(
-      movie.starships.map((starshipUrl) => fetchStarship({ url: starshipUrl }))
-    )
-      .then((starships) => {
-        setSelectedMovieId(movie.episodeId);
-        setStarships([...starships]);
-      })
-      .catch((e) => alert(e.message))
-      .finally(() => setIsMovieCardLoading(false));
+      Promise.all(
+        movie.starships.map((starshipUrl) =>
+          fetchStarship({ url: starshipUrl })
+        )
+      )
+        .then((starships) => {
+          setSelectedMovieId(movie.episodeId);
+          setStarships([...starships]);
+        })
+        .catch((e) => alert(e.message))
+        .finally(() => setLoadingMovieId(null));
+    }
   }
 
   // Starships logic
   function handleStarshipCardClick(starship) {
     const pilots = starship.pilots;
-    setIsStarshipLoading(true);
 
     if (pilots && pilots.length > 0) {
+      setLoadingStarshipId(starship.name);
       Promise.all(pilots.map((pilotUrl) => fetchStarship({ url: pilotUrl })))
         .then((pilots) => {
           // There is no id in starship model so decided to use the name instead
@@ -67,7 +71,7 @@ const StarWars = () => {
           setPilots([...pilots]);
         })
         .catch((e) => alert(e.message))
-        .finally(() => setIsStarshipLoading(false));
+        .finally(() => setLoadingStarshipId(null));
     } else {
       alert('There are not pilots to show for this pilots another starship!');
     }
@@ -91,14 +95,14 @@ const StarWars = () => {
         movies={movies}
         handleMovieCardClick={handleMovieCardClick}
         selectedMovieId={selectedMovieId}
-        isLoading={isMovieCardLoading}
+        loadingMovieId={loadingMovieId}
       />
       <Starships
         className="flex-1"
         starships={starships}
         handleStarshipCardClick={handleStarshipCardClick}
         selectedStarshipId={selectedStarshipId}
-        isLoading={isStarshipLoading}
+        loadingStarshipId={loadingStarshipId}
       />
       <Pilots
         className="flex-1"

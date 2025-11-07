@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { cn } from '../../utils/utils';
 import Loader from '../Loder';
 
@@ -7,16 +6,8 @@ const StarshipCard = ({
   starship,
   isSelected,
   isLoading,
-  onClick,
   ...rest
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setIsClicked(false);
-    }
-  }, [isLoading]);
   return (
     <div
       className={cn(
@@ -26,13 +17,9 @@ const StarshipCard = ({
           : 'border-cyan-400 bg-cyan-50 hover:bg-cyan-100',
         className
       )}
-      onClick={() => {
-        setIsClicked(true);
-        onClick();
-      }}
       {...rest}
     >
-      {isLoading && isClicked && (
+      {isLoading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-white/70">
           <Loader />
         </div>
