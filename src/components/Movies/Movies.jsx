@@ -1,5 +1,6 @@
+import Card from '../Cards/Card';
 import { cn } from '../../utils/utils';
-import MovieCard from './MovieCard';
+import MovieContent from './MovieContent';
 
 const Movies = ({
   className,
@@ -15,13 +16,15 @@ const Movies = ({
         <div className="animate-spin"></div>
       ) : (
         movies.map((movie) => (
-          <MovieCard
+          <Card
             key={movie.episodeId}
-            movie={movie}
             onClick={() => handleMovieCardClick(movie)}
+            // There is no id in movie model so decided to use the episodeId instead
             isSelected={selectedMovieId === movie.episodeId}
             isLoading={loadingMovieId === movie.episodeId}
-          />
+          >
+            <MovieContent movie={movie} />
+          </Card>
         ))
       )}
     </section>

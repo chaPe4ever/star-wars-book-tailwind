@@ -1,22 +1,13 @@
-import { cn } from '../../utils/utils';
+import Button from '../Buttons/Button';
 
-const PilotCard = ({
-  className,
+const PilotCardContent = ({
   pilot,
-  isBtnVisible = true,
   handleFavoritesBtnClick,
   btnText,
   ...rest
 }) => {
   return (
-    <div
-      className={cn(
-        'my-4 flex flex-col gap-2 rounded-md border-2 border-solid border-cyan-400 bg-cyan-50 p-2 md:cursor-pointer',
-
-        className
-      )}
-      {...rest}
-    >
+    <div {...rest}>
       <h2 className="font-extrabold">{pilot.name}</h2>
       <p className="font-light">
         <span className="font-medium">Height: </span>
@@ -34,16 +25,9 @@ const PilotCard = ({
         <span className="font-medium">Gender: </span>
         {pilot.gender}
       </p>
-      {isBtnVisible && (
-        <button
-          onClick={() => handleFavoritesBtnClick(pilot)}
-          className="cursor-pointer rounded-md bg-emerald-300 text-white hover:bg-emerald-200"
-        >
-          {btnText}
-        </button>
-      )}
+      <Button text={btnText} onClick={() => handleFavoritesBtnClick(pilot)} />
     </div>
   );
 };
 
-export default PilotCard;
+export default PilotCardContent;

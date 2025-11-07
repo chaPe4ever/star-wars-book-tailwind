@@ -36,12 +36,13 @@ const StarWars = () => {
 
   // Movies logic
   function handleMovieCardClick(movie) {
-    // Clear any selected card state
+    // Clear any selected card state to refresh prev selected cards
     setStarships([]);
     setSelectedStarshipId(null);
     setPilots([]);
 
     if (movie) {
+      // There is no id in movie model so decided to use the episodeId instead
       setLoadingMovieId(movie.episodeId);
 
       Promise.all(
@@ -63,10 +64,11 @@ const StarWars = () => {
     const pilots = starship.pilots;
 
     if (pilots && pilots.length > 0) {
+      // There is no id in starship model so decided to use the name instead
       setLoadingStarshipId(starship.name);
+
       Promise.all(pilots.map((pilotUrl) => fetchStarship({ url: pilotUrl })))
         .then((pilots) => {
-          // There is no id in starship model so decided to use the name instead
           setSelectedStarshipId(starship.name);
           setPilots([...pilots]);
         })

@@ -1,7 +1,7 @@
+import Loader from '../Loaders/Loder';
 import { cn } from '../../utils/utils';
-import Loader from '../Loder';
 
-const MovieCard = ({ className, movie, isSelected, isLoading, ...rest }) => {
+const Card = ({ className, isSelected, isLoading, children, ...rest }) => {
   return (
     <div
       className={cn(
@@ -19,18 +19,9 @@ const MovieCard = ({ className, movie, isSelected, isLoading, ...rest }) => {
         </div>
       )}
 
-      <h2 className="font-extrabold">{movie.title}</h2>
-      <p className="font-light">{movie.openingCrawl}</p>
-      <p className="font-light">
-        <span className="font-medium">Episode id: </span>
-        {movie.episodeId}
-      </p>
-      <p>
-        <span className="font-medium">Release date: </span>
-        {movie.releaseDate}
-      </p>
+      {children}
     </div>
   );
 };
 
-export default MovieCard;
+export default Card;
