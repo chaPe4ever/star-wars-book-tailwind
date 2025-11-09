@@ -13,23 +13,21 @@ const Movies = ({
 }) => {
   return (
     <section className={cn(className)}>
-      <h1 className="sticky top-0 bg-white pb-2 bg-blend-darken">Movies</h1>
       {!movies ? (
         <div className="animate-spin"></div>
       ) : (
         movies.map((movie) => (
           <Card
-            key={movie.episodeId}
+            key={movie.id}
             onClick={() => handleMovieCardClick(movie)}
-            // There is no id in movie model so decided to use the episodeId instead
-            isSelected={selectedMovieId === movie.episodeId}
-            isLoading={loadingMovieId === movie.episodeId}
-            handleToggle={(e) => handleMovieCardToggle(e, movie.episodeId)}
-            isToggled={toggledMovieId === movie.episodeId}
+            isSelected={selectedMovieId === movie.id}
+            isLoading={loadingMovieId === movie.id}
+            handleToggle={(e) => handleMovieCardToggle(e, movie.id)}
+            isToggled={toggledMovieId === movie.id}
           >
             <MovieCardContent
               movie={movie}
-              isContentVisible={toggledMovieId === movie.episodeId}
+              isContentVisible={toggledMovieId === movie.id}
             />
           </Card>
         ))

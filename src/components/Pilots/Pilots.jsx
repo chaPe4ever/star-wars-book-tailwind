@@ -1,6 +1,7 @@
 import Card from '../Cards/Card';
 import { cn } from '../../utils/utils';
 import PilotCardContent from './PilotCardContent';
+import Button from '../Buttons/Button';
 
 const Pilots = ({
   className,
@@ -11,21 +12,23 @@ const Pilots = ({
 }) => {
   return (
     <section className={cn(className)}>
-      <h1 className="sticky top-0 bg-white pb-2">Pilots</h1>
       {pilots.map((pilot) => (
         <Card
           key={pilot.name}
           isCursorPonted={false}
-          handleToggle={(e) => handlePilotCardToggle(e, pilot.name)}
+          handleToggle={(e) => handlePilotCardToggle(e, pilot.id)}
           isToggled={togglePilotId === pilot.name}
         >
           <PilotCardContent
             pilot={pilot}
-            handlePilotCardBtnClick={handleAddPilotToFavoritesClick}
-            btnText={'Add to favorites'}
-            // There is no id in movie model so decided to use the name instead
-            isContentVisible={togglePilotId === pilot.name}
-          />
+            isContentVisible={togglePilotId === pilot.id}
+          >
+            <Button
+              className={'mt-3 w-full'}
+              text={'Add to favorites'}
+              onClick={() => handleAddPilotToFavoritesClick(pilot)}
+            />
+          </PilotCardContent>
         </Card>
       ))}
     </section>

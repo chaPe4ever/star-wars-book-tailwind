@@ -13,20 +13,18 @@ const Starships = ({
 }) => {
   return (
     <section className={cn(className)}>
-      <h1 className="sticky top-0 bg-white pb-2">Starships</h1>
       {starships.map((starship) => (
         <Card
-          key={starship.name}
+          key={starship.id}
           onClick={() => handleStarshipCardClick(starship)}
-          // There is no id in starship model so decided to use the name instead
-          isSelected={selectedStarshipId === starship.name}
-          isLoading={loadingStarshipId === starship.name}
-          handleToggle={(e) => handleStarshipCardToggle(e, starship.name)}
-          isToggled={toggledStarshipId === starship.name}
+          isSelected={selectedStarshipId === starship.id}
+          isLoading={loadingStarshipId === starship.id}
+          handleToggle={(e) => handleStarshipCardToggle(e, starship.id)}
+          isToggled={toggledStarshipId === starship.id}
         >
           <StarshipCardContent
             starship={starship}
-            isContentVisible={toggledStarshipId === starship.name}
+            isContentVisible={toggledStarshipId === starship.id}
           />
         </Card>
       ))}

@@ -14,6 +14,10 @@ export class Movie {
     this.releaseDate = release_date;
     Object.assign(this, rest);
   }
+
+  get id() {
+    return Object.values(this).join('');
+  }
 }
 
 export class Starship {
@@ -32,6 +36,10 @@ export class Starship {
     this.pilots = pilots;
     Object.assign(this, rest);
   }
+
+  get id() {
+    return Object.values(this).join('');
+  }
 }
 
 export class Pilot {
@@ -42,5 +50,9 @@ export class Pilot {
     this.birthYear = birth_year;
     this.gender = gender;
     Object.assign(this, rest);
+  }
+
+  get id() {
+    return Object.values(this).join('');
   }
 }

@@ -6,8 +6,6 @@ import Starships from '../Starships/Starships';
 import { fetchMovies, fetchStarship } from '../../utils/api';
 
 const StarWarsPage = () => {
-  // Star
-
   // Movies State
   const [movies, setMovies] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
@@ -45,8 +43,7 @@ const StarWarsPage = () => {
     setPilots([]);
 
     if (movie) {
-      // There is no id in movie model so decided to use the episodeId instead
-      setLoadingMovieId(movie.episodeId);
+      setLoadingMovieId(movie.id);
 
       Promise.all(
         movie.starships.map((starshipUrl) =>
@@ -54,7 +51,7 @@ const StarWarsPage = () => {
         )
       )
         .then((starships) => {
-          setSelectedMovieId(movie.episodeId);
+          setSelectedMovieId(movie.id);
           setStarships([...starships]);
         })
         .catch((e) => alert(e.message))
@@ -76,12 +73,11 @@ const StarWarsPage = () => {
     const pilots = starship.pilots;
 
     if (pilots && pilots.length > 0) {
-      // There is no id in starship model so decided to use the name instead
-      setLoadingStarshipId(starship.name);
+      setLoadingStarshipId(starship.id);
 
       Promise.all(pilots.map((pilotUrl) => fetchStarship({ url: pilotUrl })))
         .then((pilots) => {
-          setSelectedStarshipId(starship.name);
+          setSelectedStarshipId(starship.id);
           setPilots([...pilots]);
         })
         .catch((e) => alert(e.message))
@@ -104,11 +100,13 @@ const StarWarsPage = () => {
   function handleAddPilotToFavoritesClick(pilot) {
     if (!favoritePilots.includes(pilot)) {
       setFavoritePilots([...favoritePilots, pilot]);
+    } else {
+      alert('The selected pilot is already in your favorite pilots list');
     }
   }
 
   function handleRemovePilotFromFavoritesClick(pilot) {
-    setFavoritePilots([...favoritePilots.filter((p) => p.name !== pilot.name)]);
+    setFavoritePilots([...favoritePilots.filter((p) => p.id !== pilot.id)]);
   }
 
   function handlePilotCardToggle(e, id) {
@@ -121,39 +119,50 @@ const StarWarsPage = () => {
   }
 
   return (
-    <main className="flex justify-evenly gap-4">
-      <Movies
-        className="flex-1"
-        movies={movies}
-        handleMovieCardClick={handleMovieCardClick}
-        selectedMovieId={selectedMovieId}
-        loadingMovieId={loadingMovieId}
-        toggledMovieId={toggledMovieId}
-        handleMovieCardToggle={handleMovieCardToggle}
-      />
-      <Starships
-        className="flex-1"
-        starships={starships}
-        handleStarshipCardClick={handleStarshipCardClick}
-        selectedStarshipId={selectedStarshipId}
-        loadingStarshipId={loadingStarshipId}
-        toggledStarshipId={toggledStarshipId}
-        handleStarshipCardToggle={handleStarshipCardToggle}
-      />
-      <Pilots
-        className="flex-1"
-        pilots={pilots}
-        handleAddPilotToFavoritesClick={handleAddPilotToFavoritesClick}
-        togglePilotId={togglePilotId}
-        handlePilotCardToggle={handlePilotCardToggle}
-      />
-      <FavoritePilots
-        className="flex-1"
-        favoritePilots={favoritePilots}
-        handleRemovePilotFromFavoritesClick={
-          handleRemovePilotFromFavoritesClick
-        }
-      />
+    <main className="mx-5 flex h-screen flex-col">
+      <nav className="flex justify-evenly gap-4 bg-gray-100 py-2 shadow-md">
+        <h1 className="flex-1">Movies</h1>
+        <h1 className="flex-1">Starships</h1>
+        <h1 className="flex-1">Pilots</h1>
+        <h1 className="flex-1">Favorite Pilots</h1>
+      </nav>
+
+      <main className="flex-1 overflow-hidden">
+        <div className="flex h-full justify-evenly gap-4">
+          <Movies
+            className="flex-1 overflow-y-auto pr-2"
+            movies={movies}
+            handleMovieCardClick={handleMovieCardClick}
+            selectedMovieId={selectedMovieId}
+            loadingMovieId={loadingMovieId}
+            toggledMovieId={toggledMovieId}
+            handleMovieCardToggle={handleMovieCardToggle}
+          />
+          <Starships
+            className="flex-1 overflow-y-auto px-2"
+            starships={starships}
+            handleStarshipCardClick={handleStarshipCardClick}
+            selectedStarshipId={selectedStarshipId}
+            loadingStarshipId={loadingStarshipId}
+            toggledStarshipId={toggledStarshipId}
+            handleStarshipCardToggle={handleStarshipCardToggle}
+          />
+          <Pilots
+            className="flex-1 overflow-y-auto px-2"
+            pilots={pilots}
+            handleAddPilotToFavoritesClick={handleAddPilotToFavoritesClick}
+            togglePilotId={togglePilotId}
+            handlePilotCardToggle={handlePilotCardToggle}
+          />
+          <FavoritePilots
+            className="flex-1 overflow-y-auto pl-2"
+            favoritePilots={favoritePilots}
+            handleRemovePilotFromFavoritesClick={
+              handleRemovePilotFromFavoritesClick
+            }
+          />
+        </div>
+      </main>
     </main>
   );
 };

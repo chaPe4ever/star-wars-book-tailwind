@@ -1,12 +1,4 @@
-import Button from '../Buttons/Button';
-
-const PilotCardContent = ({
-  pilot,
-  handlePilotCardBtnClick,
-  btnText,
-  isContentVisible,
-  ...rest
-}) => {
+const PilotCardContent = ({ pilot, isContentVisible, children, ...rest }) => {
   return (
     <div {...rest}>
       <h2 className="mb-1 font-extrabold">{pilot.name}</h2>
@@ -28,11 +20,7 @@ const PilotCardContent = ({
             <span className="font-medium">Gender: </span>
             {pilot.gender}
           </p>
-          <Button
-            className={'mt-3 w-full'}
-            text={btnText}
-            onClick={() => handlePilotCardBtnClick(pilot)}
-          />
+          {children}
         </div>
       )}
     </div>

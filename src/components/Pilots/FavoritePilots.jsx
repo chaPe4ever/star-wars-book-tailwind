@@ -1,6 +1,7 @@
 import Card from '../Cards/Card';
 import { cn } from '../../utils/utils';
 import PilotCardContent from './PilotCardContent';
+import Button from '../Buttons/Button';
 
 const FavoritePilots = ({
   className,
@@ -9,20 +10,20 @@ const FavoritePilots = ({
 }) => {
   return (
     <section className={cn(className)}>
-      <h1 className="sticky top-0 bg-white pb-2">Favorite Pilots</h1>
       {favoritePilots.map((pilot) => (
         <Card
-          key={pilot.name}
+          key={pilot.id}
           isToggled={true}
           isCursorPonted={false}
           isToggleIconVisible={false}
         >
-          <PilotCardContent
-            pilot={pilot}
-            handlePilotCardBtnClick={handleRemovePilotFromFavoritesClick}
-            btnText={'Remove'}
-            isContentVisible={true}
-          />
+          <PilotCardContent pilot={pilot} isContentVisible={true}>
+            <Button
+              className={'mt-3 w-full bg-rose-400 hover:bg-rose-300'}
+              text={'Remove'}
+              onClick={() => handleRemovePilotFromFavoritesClick(pilot)}
+            />
+          </PilotCardContent>
         </Card>
       ))}
     </section>
