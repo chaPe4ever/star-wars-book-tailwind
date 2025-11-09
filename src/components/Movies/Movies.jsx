@@ -8,6 +8,8 @@ const Movies = ({
   handleMovieCardClick,
   selectedMovieId,
   loadingMovieId,
+  handleMovieCardToggle,
+  toggledMovieId,
 }) => {
   return (
     <section className={cn(className)}>
@@ -22,8 +24,13 @@ const Movies = ({
             // There is no id in movie model so decided to use the episodeId instead
             isSelected={selectedMovieId === movie.episodeId}
             isLoading={loadingMovieId === movie.episodeId}
+            handleToggle={(e) => handleMovieCardToggle(e, movie.episodeId)}
+            isToggled={toggledMovieId === movie.episodeId}
           >
-            <MovieContent movie={movie} />
+            <MovieContent
+              movie={movie}
+              isContentVisible={toggledMovieId === movie.episodeId}
+            />
           </Card>
         ))
       )}

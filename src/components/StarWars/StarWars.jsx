@@ -12,11 +12,13 @@ const StarWars = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [loadingMovieId, setLoadingMovieId] = useState(null);
+  const [toggledMovieId, setToggledMovieId] = useState(null);
 
   // Starships State
   const [starships, setStarships] = useState([]);
   const [selectedStarshipId, setSelectedStarshipId] = useState(null);
   const [loadingStarshipId, setLoadingStarshipId] = useState(null);
+  const [toggledStarshipId, setToggledStarshipId] = useState(null);
 
   // Pilots State
   const [pilots, setPilots] = useState([]);
@@ -59,6 +61,15 @@ const StarWars = () => {
     }
   }
 
+  function handleMovieCardToggle(e, id) {
+    e.stopPropagation();
+    if (toggledMovieId === id) {
+      setToggledMovieId(null);
+    } else {
+      setToggledMovieId(id);
+    }
+  }
+
   // Starships logic
   function handleStarshipCardClick(starship) {
     const pilots = starship.pilots;
@@ -76,6 +87,15 @@ const StarWars = () => {
         .finally(() => setLoadingStarshipId(null));
     } else {
       alert('There are not pilots to show for this pilots another starship!');
+    }
+  }
+
+  function handleStarshipCardToggle(e, id) {
+    e.stopPropagation();
+    if (toggledStarshipId === id) {
+      setToggledStarshipId(null);
+    } else {
+      setToggledStarshipId(id);
     }
   }
 
@@ -98,6 +118,8 @@ const StarWars = () => {
         handleMovieCardClick={handleMovieCardClick}
         selectedMovieId={selectedMovieId}
         loadingMovieId={loadingMovieId}
+        toggledMovieId={toggledMovieId}
+        handleMovieCardToggle={handleMovieCardToggle}
       />
       <Starships
         className="flex-1"
@@ -105,6 +127,8 @@ const StarWars = () => {
         handleStarshipCardClick={handleStarshipCardClick}
         selectedStarshipId={selectedStarshipId}
         loadingStarshipId={loadingStarshipId}
+        toggledStarshipId={toggledStarshipId}
+        handleStarshipCardToggle={handleStarshipCardToggle}
       />
       <Pilots
         className="flex-1"

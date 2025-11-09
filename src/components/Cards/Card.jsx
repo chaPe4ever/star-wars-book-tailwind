@@ -1,7 +1,16 @@
 import Loader from '../Loaders/Loder';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '../../utils/utils';
 
-const Card = ({ className, isSelected, isLoading, children, ...rest }) => {
+const Card = ({
+  className,
+  isSelected,
+  isLoading,
+  handleToggle,
+  isToggled = false,
+  children,
+  ...rest
+}) => {
   return (
     <div
       className={cn(
@@ -15,10 +24,24 @@ const Card = ({ className, isSelected, isLoading, children, ...rest }) => {
     >
       {isLoading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-white/70">
-          <Loader />
+          <Loader size={!isToggled ? 'sm' : 'md'} />
         </div>
       )}
-      <div className="absolute right-5"></div>
+      {isToggled ? (
+        <div
+          className="absolute top-2 right-1 rounded-full hover:bg-cyan-200"
+          onClick={handleToggle}
+        >
+          <ChevronDown />
+        </div>
+      ) : (
+        <div
+          className="absolute top-2 right-1 rounded-full hover:bg-cyan-200"
+          onClick={handleToggle}
+        >
+          <ChevronUp />
+        </div>
+      )}
 
       {children}
     </div>

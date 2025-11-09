@@ -8,6 +8,8 @@ const Starships = ({
   handleStarshipCardClick,
   selectedStarshipId,
   loadingStarshipId,
+  handleStarshipCardToggle,
+  toggledStarshipId,
 }) => {
   return (
     <section className={cn(className)}>
@@ -19,8 +21,13 @@ const Starships = ({
           // There is no id in starship model so decided to use the name instead
           isSelected={selectedStarshipId === starship.name}
           isLoading={loadingStarshipId === starship.name}
+          handleToggle={(e) => handleStarshipCardToggle(e, starship.name)}
+          isToggled={toggledStarshipId === starship.name}
         >
-          <StarshipCardContent starship={starship} />
+          <StarshipCardContent
+            starship={starship}
+            isContentVisible={toggledStarshipId === starship.name}
+          />
         </Card>
       ))}
     </section>
