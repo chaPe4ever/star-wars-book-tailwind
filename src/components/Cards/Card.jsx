@@ -32,14 +32,14 @@ const Card = ({
           className="absolute top-2 right-1 rounded-full hover:bg-cyan-200"
           onClick={handleToggle}
         >
-          <ChevronDown />
+          <ChevronUp />
         </div>
       ) : (
         <div
           className="absolute top-2 right-1 rounded-full hover:bg-cyan-200"
           onClick={handleToggle}
         >
-          <ChevronUp />
+          <ChevronDown />
         </div>
       )}
 
