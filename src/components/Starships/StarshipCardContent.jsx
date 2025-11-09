@@ -1,10 +1,10 @@
 const StarshipCardContent = ({ starship, isContentVisible, ...rest }) => {
   return (
     <div {...rest}>
-      <h2 className="font-extrabold">{starship.name}</h2>
+      <h2 className="mb-1 font-extrabold">{starship.name}</h2>
 
       {isContentVisible && (
-        <div>
+        <div className="flex flex-col items-start gap-1 text-left">
           <p className="font-light">
             <span className="font-medium">Model: </span>
             {starship.model}

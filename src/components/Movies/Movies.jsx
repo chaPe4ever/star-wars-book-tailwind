@@ -1,6 +1,6 @@
 import Card from '../Cards/Card';
 import { cn } from '../../utils/utils';
-import MovieContent from './MovieContent';
+import MovieCardContent from './MovieCardContent';
 
 const Movies = ({
   className,
@@ -27,7 +27,7 @@ const Movies = ({
             handleToggle={(e) => handleMovieCardToggle(e, movie.episodeId)}
             isToggled={toggledMovieId === movie.episodeId}
           >
-            <MovieContent
+            <MovieCardContent
               movie={movie}
               isContentVisible={toggledMovieId === movie.episodeId}
             />

@@ -5,7 +5,7 @@ import Pilots from '../Pilots/Pilots';
 import Starships from '../Starships/Starships';
 import { fetchMovies, fetchStarship } from '../../utils/api';
 
-const StarWars = () => {
+const StarWarsPage = () => {
   // Star
 
   // Movies State
@@ -23,6 +23,7 @@ const StarWars = () => {
   // Pilots State
   const [pilots, setPilots] = useState([]);
   const [favoritePilots, setFavoritePilots] = useState([]);
+  const [togglePilotId, setTogglePilotId] = useState(null);
 
   useEffect(() => {
     async function fetchMoviesAsync() {
@@ -110,6 +111,15 @@ const StarWars = () => {
     setFavoritePilots([...favoritePilots.filter((p) => p.name !== pilot.name)]);
   }
 
+  function handlePilotCardToggle(e, id) {
+    e.stopPropagation();
+    if (togglePilotId === id) {
+      setTogglePilotId(null);
+    } else {
+      setTogglePilotId(id);
+    }
+  }
+
   return (
     <main className="flex justify-evenly gap-4">
       <Movies
@@ -134,6 +144,8 @@ const StarWars = () => {
         className="flex-1"
         pilots={pilots}
         handleAddPilotToFavoritesClick={handleAddPilotToFavoritesClick}
+        togglePilotId={togglePilotId}
+        handlePilotCardToggle={handlePilotCardToggle}
       />
       <FavoritePilots
         className="flex-1"
@@ -146,4 +158,4 @@ const StarWars = () => {
   );
 };
 
-export default StarWars;
+export default StarWarsPage;

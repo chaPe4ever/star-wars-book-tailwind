@@ -1,8 +1,8 @@
-import "./App.css";
-import StarWars from "./components/StarWars/StarWars";
+import './App.css';
+import StarWarsPage from './components/Pages/StarWarsPage';
 
 function App() {
-  return <StarWars />;
+  return <StarWarsPage />;
 }
 
 export default App;
